@@ -1,0 +1,24 @@
+case START:
+                if (data == 'C'){
+                COM = CAN;
+                UART_Put_Character(13);
+                UART_Put_Character((char *)24);
+            }else if (data == 'e'){
+                COM = CAN;
+                UART_Put_Character(13);
+                UART_Put_Character((char *)25);
+            }else if (data == 'E'){
+                COM = ESC;
+                UART_Put_Character(13);
+                UART_Put_Character((char *)27);
+            }else if (data == 'D'){
+                COM = DEL;
+                UART_Put_Character(13);
+                UART_Put_Character((char *)127);
+            }else if (data == 'U'){
+                COM = USEPARATOR;
+            }
+            else{ 
+                COM = WAITSTART;
+            }
+            break;

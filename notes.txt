@@ -1,0 +1,56 @@
+*******PWM RESOLUTION***********
+PWM resolution = log2 ((2Fcy)/Fpwm);
+log((2*Fcy)/Fpwm) / log(2)
+
+///PTPER calculation///
+PxTPER = ((Fcy / (Fpwm*[prescaler)) - 1;
+
+The advantage of the lowest resolution possible is that an inverse relationship
+exists between speed and resolution. The lower the resolution, the higher the speed.
+
+Calculate PWMf for given frequency:
+PWM module frequency = Fpwm = (2*Fcy) / (10^(R*log(2))) 
+
+P2TPER:07D0   Fpwm = 20000   Hz, 
+
+PRESCALER 1:1
+P2TPER:0x05FF Fpwm = 26041   Hz, RESpwm - 12bit
+P2TPER:0x1000 Fpwm = 9765,5  Hz, RESpwm - 13bit
+P2TPER:0x2000 Fpwm = 4878,05 Hz, RESpwm - 14bit
+P2TPER:0x8011 Fpwm = 1220    Hz, RESpwm - 16bit
+
+PxDCy - determis whether the PWM signal edge will occur at the TCY or the 
+TCY/2 boundary.
+
+*******PWM frequency************
+1. As frequency increases, so does current requirement due to switching losses.
+2. Capacitance and inductance of the load tend to limit the frequency response
+ of a circuit.
+
+3. Important consideration when choosing Fpwm - the responsiveness of the motor
+ to changes.
+        - A motor will have a faster response to changes in duty cycle at higher 
+frequencies.
+
+*******PWM Update Lockout*******
+The update disable feature allows the user software to specify
+when new duty cycle and period values can be used by the MCPWM module.
+
+1. Set the UDIS bit (PWMxCON2<0>).
+2. Write all duty cycle registers and PxTPER, if applicable.
+3. Clear the UDIS bit (PWMxCON2<0>) to re-enable updates
+
+*******Change Rotation*********
+Motors with Differential Encoders 
+?
+Swap Phase S with Phase T 
+Swap Comm R-S with Comm T-R 
+Swap Enc A with Enc A~ 
+
+Motors with Single-Ended Encoders 
+?
+Swap Phase S with Phase T 
+Swap Comm R-S with Comm T-R 
+Swap Enc A with Enc B 
+
+
